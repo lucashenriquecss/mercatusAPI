@@ -1,4 +1,10 @@
 DB_URL=jdbc:postgresql://localhost:5432/NAME_DATABASE
 DB_USERNAME=
 DB_PASSWORD=
+
 JWT_SECRET=
+
+
+POSTGRES_DB=meu_banco
+POSTGRES_USER=meu_usuario
+POSTGRES_PASSWORD=senha_secreta
