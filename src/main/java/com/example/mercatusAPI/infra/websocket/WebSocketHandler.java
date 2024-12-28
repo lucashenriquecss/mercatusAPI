@@ -2,7 +2,8 @@ package com.example.mercatusAPI.infra.websocket;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -47,15 +48,22 @@ public class WebSocketHandler extends TextWebSocketHandler {
         if (session.isOpen()) {
             System.out.println("Mensagem recebida de " + session.getId() + ": " + message.getPayload());
 
-            String auctionId = (String) session.getAttributes().get("auctionId");
-            Auction auction = auctionService.findAuctionById(auctionId);
-    
-            if (message.getPayload().startsWith("bid:")) {
-                double bidAmount = Double.parseDouble(message.getPayload().substring(4));
-                auctionService.placeBid(session, auction, bidAmount);
-            } else {
-                // Enviar mensagens para a sala
-                auctionService.sendMessageToAll(session, auction, message.getPayload());
+            String regex = ".*/auction/([a-fA-F0-9\\-]+)/join.*";
+            String  uri = session.getUri().toString();
+
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(uri);
+
+            if(matcher.find()){
+                String auctionId = matcher.group(1);
+                Auction auction = auctionService.findAuctionById(auctionId);
+        
+                if (message.getPayload().startsWith("bid:")) {
+                    double bidAmount = Double.parseDouble(message.getPayload().substring(4));
+                    auctionService.placeBid(session, auction, bidAmount);
+                } else {
+                    auctionService.sendMessageToAll(session, auction, message.getPayload());
+                }
             }
         }else {
             System.out.println("A sessão WebSocket não está ativa.");

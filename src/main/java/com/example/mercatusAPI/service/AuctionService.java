@@ -24,11 +24,22 @@ public class AuctionService {
     }
 
     public Auction findAuctionById(String id) {
-        return auctionRepository.findById(id).orElseThrow(() -> new RuntimeException("Auction not found"));
+        return auctionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Auction not found with id: " + id));
     }
+    
 
     public List<Auction> getOpenAuctions() {
         return auctionRepository.findAll();
+    }
+
+    public void createAuctions() {
+        Auction createRoom = Auction.builder()
+        .name("teste room")
+        .description("teste")
+        .build();
+
+       auctionRepository.save(createRoom);
     }
 
     public void placeBid(WebSocketSession session, Auction auction, double bidAmount) {
@@ -41,7 +52,7 @@ public class AuctionService {
     }
 
     public void sendMessageToAll(WebSocketSession session, Auction auction, String message) {
-        // Lógica para enviar a mensagem para todos os usuários conectados na sala
+        System.out.println(message);
     }
 }
 

@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class Auction {
 
     @Id
