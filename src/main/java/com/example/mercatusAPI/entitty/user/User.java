@@ -14,11 +14,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Table(name = "users")
 @Entity(name = "users")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -43,13 +45,7 @@ public class User implements UserDetails {
     @Column(name="is_active")
     private boolean isActive;
 
-    @Column()
-    private Double balance;
-
-
-
-
-    
+ 
     public User(String email, String password, UserRole role, String name){
         this.name = name;
         this.email = email;
