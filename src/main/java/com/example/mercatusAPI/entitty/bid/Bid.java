@@ -1,5 +1,7 @@
 package com.example.mercatusAPI.entitty.bid;
 
+import java.math.BigDecimal;
+
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.entitty.user.User;
 
@@ -31,8 +33,8 @@ public class Bid {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column()
-    private double amount;
+    @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")
+    private BigDecimal amount;
 
     @ManyToOne
     @JoinColumn(name = "auction_id")

@@ -51,7 +51,7 @@ public class User implements UserDetails {
     @Column(name="is_active")
     private boolean isActive;
 
-    @Column()
+    @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")    
     private BigDecimal balance;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -48,10 +48,10 @@ public class Auction {
     @Column()
     private String description;
 
-    @Column()
+    @Column(nullable= true)
     private String status;
 
-    @Column(name="ticket_value")
+    @Column(name="ticket_value", precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")
     private BigDecimal ticketValue;
 
     @Column(name = "start_time")

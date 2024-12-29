@@ -42,8 +42,8 @@ public class Ticket {
     @Column(name="is_active")
     private boolean isActive;
 
-    @Column()
-    private double amount;
+    @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")
+    private BigDecimal amount;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
