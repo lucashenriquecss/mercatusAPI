@@ -15,6 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 import com.example.mercatusAPI.repository.UserRepository;
+import com.example.mercatusAPI.service.TokenService;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired

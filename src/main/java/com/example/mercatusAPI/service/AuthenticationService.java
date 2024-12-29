@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,7 +20,7 @@ import com.example.mercatusAPI.dto.auth.LoginResponseDTO;
 import com.example.mercatusAPI.dto.auth.RegisterDTO;
 import com.example.mercatusAPI.entitty.user.User;
 import com.example.mercatusAPI.exception.auth.*;
-import com.example.mercatusAPI.infra.security.TokenService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
@@ -78,6 +81,7 @@ public class AuthenticationService implements UserDetailsService {
             .password(encryptedPassword)
             .role(registrationData.role())
             .name(registrationData.name())
+            .balance(BigDecimal.valueOf(0.00))
             .isActive(true)
             .build();
 

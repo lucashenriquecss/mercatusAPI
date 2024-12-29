@@ -2,6 +2,7 @@ package com.example.mercatusAPI.entitty.item;
 
 
 import java.util.List;
+import java.math.BigDecimal;
 
 
 import com.example.mercatusAPI.entitty.inventory.Inventory;
@@ -48,8 +49,8 @@ public class Item {
     @Column()
     private String quantity;
 
-    @Column()
-    private double amount;
+    @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")
+    private BigDecimal amount;
 
     @Column()
     private String status;

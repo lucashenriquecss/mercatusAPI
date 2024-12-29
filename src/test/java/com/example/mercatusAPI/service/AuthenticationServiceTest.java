@@ -30,7 +30,6 @@ import com.example.mercatusAPI.entitty.user.User;
 import com.example.mercatusAPI.entitty.user.UserRole;
 import com.example.mercatusAPI.exception.auth.AuthenticationFailedException;
 import com.example.mercatusAPI.exception.auth.UserAlreadyExistsException;
-import com.example.mercatusAPI.infra.security.TokenService;
 import com.example.mercatusAPI.repository.UserRepository;
 
 @ExtendWith(MockitoExtension.class)

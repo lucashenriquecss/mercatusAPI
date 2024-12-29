@@ -1,5 +1,6 @@
 package com.example.mercatusAPI.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,14 @@ public class AuctionService {
         .description(registrationData.description())
         .startTime(registrationData.startTime())
         .endTime(registrationData.endTime())
+        .ticketValue(registrationData.ticketValue())
+        .status(registrationData.status())
         .build();
 
        auctionRepository.save(createRoom);
     }
 
-    public void placeBid(WebSocketSession session, Auction auction, double bidAmount) {
+    public void placeBid(WebSocketSession session, Auction auction, BigDecimal bidAmount) {
         Bid bid = new Bid();
         bid.setAmount(bidAmount);
         bid.setAuction(auction);

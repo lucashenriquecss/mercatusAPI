@@ -1,5 +1,6 @@
 package com.example.mercatusAPI.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.mercatusAPI.dto.auction.RegisterRoomDTO;
-import com.example.mercatusAPI.dto.auth.RegisterDTO;
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.service.AuctionService;
 
@@ -31,7 +31,7 @@ public class AuctionController {
     }
 
     @PostMapping("/{auctionId}/bid")
-    public ResponseEntity<String> placeBid(@PathVariable String auctionId, @RequestBody double bidAmount) {
+    public ResponseEntity<String> placeBid(@PathVariable String auctionId, @RequestBody BigDecimal bidAmount) {
         Auction auction = auctionService.findAuctionById(auctionId);
         auctionService.placeBid(null, auction, bidAmount); 
 
