@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.mercatusAPI.dto.auction.RegisterRoomDTO;
 import com.example.mercatusAPI.dto.auth.RegisterDTO;
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.service.AuctionService;
@@ -35,10 +37,11 @@ public class AuctionController {
 
         return ResponseEntity.ok("Bid placed successfully");
     }
-    @GetMapping("/create-room")
-    public ResponseEntity create() {
-        auctionService.createAuctions();
-        return ResponseEntity.ok("Bid placed successfully");
+    
+    @PostMapping("/create-room")
+    public ResponseEntity<Void> create(@RequestBody @Valid RegisterRoomDTO registrationData) {
+        auctionService.createAuctions(registrationData);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/open")

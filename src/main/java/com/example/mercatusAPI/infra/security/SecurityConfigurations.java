@@ -31,7 +31,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/refresh-token").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/forgot-password").permitAll()
-                        // .requestMatchers(HttpMethod.GET, "/auth/forgot_password2").hasRole("ADMIN") //restricted route for admin
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auctions/create-room").permitAll()
+                        
                         .requestMatchers("/ws/**").permitAll() 
                         .requestMatchers("/websocket/**").permitAll() 
 
@@ -39,8 +40,6 @@ public class SecurityConfigurations {
                         .requestMatchers("/ws/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/auctions/open").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/auctions/create-room").permitAll()
-
                         .requestMatchers(HttpMethod.POST, "/api/v1/auctions/{auctionId}/bid").permitAll()
                         .anyRequest().authenticated()
                 )

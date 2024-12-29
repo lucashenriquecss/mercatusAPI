@@ -1,23 +1,20 @@
-package com.example.mercatusAPI.entitty.auction;
+package com.example.mercatusAPI.entitty.item;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
-import com.example.mercatusAPI.entitty.bid.Bid;
+
 import com.example.mercatusAPI.entitty.inventory.Inventory;
-import com.example.mercatusAPI.entitty.ticket.Ticket;
 import com.example.mercatusAPI.entitty.transaction.Transaction;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,15 +25,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@Table(name = "auctions")
-@Entity(name = "auctions")
+@Table(name = "items")
+@Entity(name = "items")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-public class Auction {
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -49,30 +46,29 @@ public class Auction {
     private String description;
 
     @Column()
+    private String quantity;
+
+    @Column()
+    private double amount;
+
+    @Column()
     private String status;
 
-    @Column(name="ticket_value")
-    private BigDecimal ticketValue;
+    @Column()
+    private List<String> images;
 
-    @Column(name = "start_time")
-    private LocalDateTime startTime;
+    @Column(name="is_auctioned")
+    private boolean isAuctioned;
 
-    @Column(name = "end_time")
-    private LocalDateTime endTime;
 
-    @OneToMany(mappedBy = "auction")
-    private List<Bid> bids;
-    
-    @OneToMany(mappedBy = "auction")
+    @OneToMany(mappedBy="item")
     private List<Transaction> transactions;
-
-    @OneToMany(mappedBy = "auction")
-    private List<Ticket> tickets;
-
-    @OneToOne()
-    @JoinColumn(name= "inventory_id", referencedColumnName = "id")
+    
+    @ManyToOne
+    @JoinColumn(name= "inventory_id")
     private Inventory inventory;
-  
+
 
 }
+
 

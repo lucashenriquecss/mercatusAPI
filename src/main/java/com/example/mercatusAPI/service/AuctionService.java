@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
+import com.example.mercatusAPI.dto.auction.RegisterRoomDTO;
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.entitty.bid.Bid;
 import com.example.mercatusAPI.repository.AuctionRepository;
@@ -33,10 +34,12 @@ public class AuctionService {
         return auctionRepository.findAll();
     }
 
-    public void createAuctions() {
+    public void createAuctions(RegisterRoomDTO registrationData) {
         Auction createRoom = Auction.builder()
-        .name("teste room")
-        .description("teste")
+        .name(registrationData.name())
+        .description(registrationData.description())
+        .startTime(registrationData.startTime())
+        .endTime(registrationData.endTime())
         .build();
 
        auctionRepository.save(createRoom);

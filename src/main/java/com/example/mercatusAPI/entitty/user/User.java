@@ -1,11 +1,17 @@
 package com.example.mercatusAPI.entitty.user;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.mercatusAPI.entitty.bid.Bid;
+import com.example.mercatusAPI.entitty.inventory.Inventory;
+import com.example.mercatusAPI.entitty.ticket.Ticket;
+import com.example.mercatusAPI.entitty.transaction.Transaction;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,7 +51,23 @@ public class User implements UserDetails {
     @Column(name="is_active")
     private boolean isActive;
 
- 
+    @Column()
+    private BigDecimal balance;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="inventory_id", referencedColumnName="id")
+    private Inventory inventory;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Bid> bids;
+
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> tickets;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions;
+    
     public User(String email, String password, UserRole role, String name){
         this.name = name;
         this.email = email;
