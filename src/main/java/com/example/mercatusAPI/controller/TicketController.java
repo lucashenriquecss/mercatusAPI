@@ -39,11 +39,11 @@ public class TicketController {
 
         User user = (User) authentication.getPrincipal();
         Auction auction = auctionService.findAuctionById(auctionId);
-        
+
         try {
             ticketService.buyTicket(user, auction);  
             return ResponseEntity.ok("Compra efetuada com sucesso.");
-        } catch (TicketAlreadyExistsException ex) {
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }

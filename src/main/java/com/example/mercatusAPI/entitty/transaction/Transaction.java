@@ -48,6 +48,12 @@ public class Transaction {
     @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")
     private BigDecimal amount;
 
+    @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00",name="old_balance_user")
+    private BigDecimal oldBalanceUser;
+
+    @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00",name="new_balance_user")
+    private BigDecimal newBalanceUser;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
