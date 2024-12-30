@@ -21,7 +21,7 @@ import com.example.mercatusAPI.dto.auth.LoginResponseDTO;
 import com.example.mercatusAPI.dto.auth.RegisterDTO;
 import com.example.mercatusAPI.entitty.user.User;
 import com.example.mercatusAPI.entitty.inventory.Inventory;
-
+import com.example.mercatusAPI.exception.ForbiddenException;
 import com.example.mercatusAPI.exception.auth.*;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -77,7 +77,7 @@ public class AuthenticationService implements UserDetailsService {
     public void registerUser(RegisterDTO registrationData) {
 
         if (userRepository.findByEmail(registrationData.email()) != null) {
-            throw new UserAlreadyExistsException("Email already registered");
+            throw new ForbiddenException("Email already registered");
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(registrationData.password());

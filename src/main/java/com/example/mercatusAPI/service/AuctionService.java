@@ -3,7 +3,6 @@ package com.example.mercatusAPI.service;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -15,11 +14,10 @@ import com.example.mercatusAPI.repository.BidRepository;
 
 @Service
 public class AuctionService {
-
+    
     private final AuctionRepository auctionRepository;
     private final BidRepository bidRepository;
 
-    @Autowired
     public AuctionService(AuctionRepository auctionRepository, BidRepository bidRepository) {
         this.auctionRepository = auctionRepository;
         this.bidRepository = bidRepository;

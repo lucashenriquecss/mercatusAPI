@@ -57,12 +57,10 @@ public class AuthenticationController {
     })
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody @Valid RegisterDTO registrationData) {
-        try {
-            authService.registerUser(registrationData);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+
+        authService.registerUser(registrationData);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+      
     }
 
     // @Operation(summary = "Initialize password recovery process")

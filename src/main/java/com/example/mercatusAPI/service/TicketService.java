@@ -5,14 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.mercatusAPI.dto.ticket.BuyTicketRoomDTO;
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.entitty.ticket.Ticket;
 import com.example.mercatusAPI.entitty.transaction.Transaction;
 import com.example.mercatusAPI.entitty.transaction.TransactionType;
 import com.example.mercatusAPI.entitty.user.User;
-import com.example.mercatusAPI.exception.ticket.TicketAlreadyExistsException;
-import com.example.mercatusAPI.exception.user.InsufficientBalanceException;
+import com.example.mercatusAPI.exception.ForbiddenException;
 import com.example.mercatusAPI.repository.TicketRepository;
 import com.example.mercatusAPI.repository.TransactionRepository;
 import com.example.mercatusAPI.repository.UserRepository;
@@ -38,11 +36,11 @@ public class TicketService {
         Optional<Ticket> existingTicket = ticketRepository.findByUserAndAuctionAndIsActiveTrue(user, auction);
 
         if (existingTicket.isPresent()) {
-            throw new TicketAlreadyExistsException("Ticket já comprado para este leilão.");
+            throw new ForbiddenException("Ticket já comprado para este leilão.");
         }
 
-        if (user.getBalance().compareTo(auction.getTicketValue()) < 0) {//TODO: AJUSTAR RETORNOS
-            throw new TicketAlreadyExistsException("Saldo insuficiente para comprar o ticket.");
+        if (user.getBalance().compareTo(auction.getTicketValue()) < 0) {
+            throw new ForbiddenException("Saldo insuficiente para comprar o ticket.");
         }
 
         
