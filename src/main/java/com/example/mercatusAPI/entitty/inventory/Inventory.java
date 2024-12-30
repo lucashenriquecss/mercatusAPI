@@ -41,7 +41,7 @@ public class Inventory {
     private String id;
 
     @OneToMany(mappedBy = "inventory", cascade= CascadeType.ALL)
-    private List<Item> items;
+    private List<ItemInventory> items;
 
     @OneToOne(mappedBy="inventory")
     private User user;

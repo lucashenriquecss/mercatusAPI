@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 
 import com.example.mercatusAPI.entitty.inventory.Inventory;
+import com.example.mercatusAPI.entitty.inventory.ItemInventory;
 import com.example.mercatusAPI.entitty.transaction.Transaction;
 
 import jakarta.persistence.Column;
@@ -47,6 +48,9 @@ public class Item {
     private String description;
 
     @Column()
+    private String code;
+
+    @Column()
     private String quantity;
 
     @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")
@@ -64,11 +68,11 @@ public class Item {
 
     @OneToMany(mappedBy="item")
     private List<Transaction> transactions;
-    
-    @ManyToOne
-    @JoinColumn(name= "inventory_id")
-    private Inventory inventory;
 
+
+    @OneToMany(mappedBy="item")
+    private List<ItemInventory> itemInventories;
+    
 
 }
 
