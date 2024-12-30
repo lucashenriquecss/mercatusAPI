@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import com.example.mercatusAPI.infra.ApiResponsePadronize;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -26,10 +27,11 @@ public class AuthenticationController {
         @ApiResponse(responseCode = "401", description = "Invalid credentials")
     })
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO credentials) {
+    public ResponseEntity<ApiResponsePadronize<LoginResponseDTO>> login(@RequestBody @Valid AuthenticationDTO credentials) {
         try {
             LoginResponseDTO response = authService.authenticate(credentials);
-            return ResponseEntity.ok(response);
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponsePadronize<>(HttpStatus.OK, "Successfully authenticated", response));    
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -41,10 +43,12 @@ public class AuthenticationController {
         @ApiResponse(responseCode = "401", description = "Invalid refresh token")
     })
     @PostMapping("/refresh-token")
-    public ResponseEntity<LoginResponseDTO> refreshToken(@RequestBody @Valid RefreshTokenDTO refreshToken) {
+    public ResponseEntity<ApiResponsePadronize<LoginResponseDTO>> refreshToken(@RequestBody @Valid RefreshTokenDTO refreshToken) {
         try {
             LoginResponseDTO response = authService.refreshToken(refreshToken.refreshToken());
-            return ResponseEntity.ok(response);
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponsePadronize<>(HttpStatus.OK, "Token successfully refreshed", response));    
+
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -56,11 +60,10 @@ public class AuthenticationController {
         @ApiResponse(responseCode = "409", description = "User already exists")
     })
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody @Valid RegisterDTO registrationData) {
+    public ResponseEntity<ApiResponsePadronize<String>> register(@RequestBody @Valid RegisterDTO registrationData) {
 
         authService.registerUser(registrationData);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-      
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponsePadronize<>(HttpStatus.OK, "User successfully registered", null));    
     }
 
     // @Operation(summary = "Initialize password recovery process")

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.mercatusAPI.dto.auction.RegisterRoomDTO;
 import com.example.mercatusAPI.entitty.auction.Auction;
+import com.example.mercatusAPI.infra.ApiResponsePadronize;
 import com.example.mercatusAPI.service.AuctionService;
 
 @RestController
@@ -24,28 +24,29 @@ import com.example.mercatusAPI.service.AuctionService;
 public class AuctionController {
 
     private final AuctionService auctionService;
-
-    @Autowired
     public AuctionController(AuctionService auctionService) {
         this.auctionService = auctionService;
     }
 
     @PostMapping("/{auctionId}/bid")
-    public ResponseEntity<String> placeBid(@PathVariable String auctionId, @RequestBody BigDecimal bidAmount) {
+    public ResponseEntity<ApiResponsePadronize<String>> placeBid(@PathVariable String auctionId, @RequestBody BigDecimal bidAmount) {
+
         Auction auction = auctionService.findAuctionById(auctionId);
         auctionService.placeBid(null, auction, bidAmount); 
 
-        return ResponseEntity.ok("Bid placed successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponsePadronize<>(HttpStatus.OK, "Bid placed successfully", null));
     }
     
     @PostMapping("/create-room")
-    public ResponseEntity<Void> create(@RequestBody @Valid RegisterRoomDTO registrationData) {
+    public ResponseEntity<ApiResponsePadronize<String>> create(@RequestBody @Valid RegisterRoomDTO registrationData) {
+
         auctionService.createAuctions(registrationData);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponsePadronize<>(HttpStatus.OK, "Processado com sucesso", null));
     }
 
     @GetMapping("/open")
-    public List<Auction> getOpenAuctions() {
-        return auctionService.getOpenAuctions();
+    public ResponseEntity<ApiResponsePadronize<List<Auction>>> getOpenAuctions() {
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponsePadronize<>(HttpStatus.OK, "Processado com sucesso", auctionService.getOpenAuctions()));
     }
 }

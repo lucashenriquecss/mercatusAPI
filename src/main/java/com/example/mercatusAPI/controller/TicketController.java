@@ -13,6 +13,8 @@ import com.example.mercatusAPI.service.TicketService;
 
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.entitty.user.User;
+import com.example.mercatusAPI.infra.ApiResponsePadronize;
+
 
 
 @RestController
@@ -28,14 +30,14 @@ public class TicketController {
 
 
     @PostMapping("/{auctionId}/buy")
-    public ResponseEntity<String> buyTicket(Authentication authentication, @PathVariable String auctionId){
+    public ResponseEntity<ApiResponsePadronize<String>> buyTicket(Authentication authentication, @PathVariable String auctionId){
         
         User user = (User) authentication.getPrincipal();
         Auction auction = auctionService.findAuctionById(auctionId);
 
         ticketService.buyTicket(user, auction);  
         
-        return ResponseEntity.ok("Compra efetuada com sucesso.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponsePadronize<>(HttpStatus.OK, "Processado com sucesso"));
        
     }
     
