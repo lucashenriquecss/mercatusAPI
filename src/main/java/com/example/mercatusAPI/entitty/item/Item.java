@@ -57,9 +57,6 @@ public class Item {
     private BigDecimal amount;
 
     @Column()
-    private String status;
-
-    @Column()
     private List<String> images;
 
     @Column(name="is_auctioned")

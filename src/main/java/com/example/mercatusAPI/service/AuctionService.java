@@ -30,7 +30,7 @@ public class AuctionService {
     
 
     public List<Auction> getOpenAuctions() {
-        return auctionRepository.findAll();
+        return auctionRepository.findOpenAuctions();
     }
 
     public void createAuctions(RegisterRoomDTO registrationData) {
@@ -40,7 +40,6 @@ public class AuctionService {
         .startTime(registrationData.startTime())
         .endTime(registrationData.endTime())
         .ticketValue(registrationData.ticketValue())
-        .status(registrationData.status())
         .build();
 
        auctionRepository.save(createRoom);
