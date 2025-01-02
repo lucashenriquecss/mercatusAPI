@@ -23,6 +23,8 @@ Ela também suporta leilões de itens específicos, onde os usuário podem compr
   
 - **Banco de Dados**:
   - [PostgreSql] - Armazenamento de dados de inventário, transações e usuários.
+  - [MongoDB] - Armazenamento de dados de Mensagens das salas de leilão, Lances.
+
   
 - **Testes**:
   - [JUnit] e [Mockito] - Testes automatizados para garantir o funcionamento correto da aplicação.
