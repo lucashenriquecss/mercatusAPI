@@ -3,6 +3,7 @@ package com.example.mercatusAPI.entitty.transaction;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.example.mercatusAPI.entitty.BaseEntity;
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.entitty.item.Item;
 import com.example.mercatusAPI.entitty.transaction.Transaction;
@@ -34,7 +35,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-public class Transaction {
+public class Transaction extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.mercatusAPI.entitty.bid.Bid;
+import com.example.mercatusAPI.entitty.BaseEntity;
 import com.example.mercatusAPI.entitty.inventory.Inventory;
 import com.example.mercatusAPI.entitty.ticket.Ticket;
 import com.example.mercatusAPI.entitty.transaction.Transaction;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +35,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-public class Auction {
+public class Auction extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -57,9 +56,6 @@ public class Auction {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    @OneToMany(mappedBy = "auction")
-    private List<Bid> bids;
-    
     @OneToMany(mappedBy = "auction")
     private List<Transaction> transactions;
 

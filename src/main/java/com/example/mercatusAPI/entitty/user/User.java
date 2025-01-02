@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.mercatusAPI.entitty.bid.Bid;
+import com.example.mercatusAPI.entitty.BaseEntity;
 import com.example.mercatusAPI.entitty.inventory.Inventory;
 import com.example.mercatusAPI.entitty.ticket.Ticket;
 import com.example.mercatusAPI.entitty.transaction.Transaction;
@@ -31,7 +31,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-public class User implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -57,10 +57,6 @@ public class User implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="inventory_id", referencedColumnName="id")
     private Inventory inventory;
-
-
-    @OneToMany(mappedBy = "user")
-    private List<Bid> bids;
 
     @OneToMany(mappedBy = "user")
     private List<Ticket> tickets;

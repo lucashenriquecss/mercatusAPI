@@ -1,5 +1,6 @@
 package com.example.mercatusAPI.entitty.inventory;
 
+import com.example.mercatusAPI.entitty.BaseEntity;
 import com.example.mercatusAPI.entitty.item.Item;
 
 import jakarta.persistence.Column;
@@ -27,7 +28,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-public class ItemInventory {
+public class ItemInventory extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

@@ -1,15 +1,13 @@
 package com.example.mercatusAPI.entitty.inventory;
 
 
-import java.math.BigDecimal;
 import java.util.List;
 
+import com.example.mercatusAPI.entitty.BaseEntity;
 import com.example.mercatusAPI.entitty.auction.Auction;
-import com.example.mercatusAPI.entitty.item.Item;
 import com.example.mercatusAPI.entitty.user.User;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +32,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-public class Inventory {
+public class Inventory extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

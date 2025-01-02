@@ -3,7 +3,8 @@ DB_USERNAME=
 DB_PASSWORD=
 
 JWT_SECRET=
-
+MONGO_URI=mongodb://mongoUser:mongoPass@localhost:PORT/MY_DATABASE
+MONGO_DATABASE=MY_DATABASE
 
 POSTGRES_DB=meu_banco
 POSTGRES_USER=meu_usuario
