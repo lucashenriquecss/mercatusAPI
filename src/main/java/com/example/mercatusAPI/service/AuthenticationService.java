@@ -87,7 +87,7 @@ public class AuthenticationService implements UserDetailsService {
             .password(encryptedPassword)
             .role(registrationData.role())
             .name(registrationData.name())
-            .balance(BigDecimal.valueOf(0.00))
+            .balance(BigDecimal.valueOf(1500.00))
             .isActive(true)
             .build();
 
