@@ -62,7 +62,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         
                 if (message.getPayload().startsWith("bid:")) {
                     BigDecimal bidAmount =  new BigDecimal(message.getPayload().substring(4));
-                    auctionService.placeBid(session, auction, bidAmount);
+                    auctionService.placeBid(session, auction, bidAmount, message.getPayload());
                 } else {
                     auctionService.sendMessageToAll(session, auction, message.getPayload());
                 }
