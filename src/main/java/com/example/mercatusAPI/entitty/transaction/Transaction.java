@@ -55,9 +55,6 @@ public class Transaction extends BaseEntity{
     @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00",name="new_balance_user")
     private BigDecimal newBalanceUser;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

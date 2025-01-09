@@ -44,9 +44,6 @@ public class Ticket extends BaseEntity{
     @Column(precision = 19, scale = 2, nullable = false, columnDefinition = "DECIMAL(19,2) DEFAULT 0.00")
     private BigDecimal amount;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
     @ManyToOne
     @JoinColumn(name = "auction_id")
     private Auction auction;

@@ -1,20 +1,18 @@
 package com.example.mercatusAPI.service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.example.mercatusAPI.dto.auth.LoginResponseDTO;
-import com.example.mercatusAPI.entitty.user.User;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.example.mercatusAPI.dto.auth.LoginResponseDTO;
+import com.example.mercatusAPI.entitty.user.User;
 import com.example.mercatusAPI.repository.UserRepository;
 
 @Service
@@ -22,7 +20,6 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    @Autowired
     private UserRepository userRepository;
     // @Value("${api.security.token.expiration}")
     // private Integer hourExpirationToken;

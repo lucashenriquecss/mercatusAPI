@@ -51,7 +51,6 @@ public class TicketService {
             .amount(auction.getTicketValue())
             .oldBalanceUser(user.getBalance())
             .newBalanceUser(user.getBalance().subtract(auction.getTicketValue()))
-            .createdAt(LocalDateTime.now())
             .auction(auction)
             .user(user)
             .build()

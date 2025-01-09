@@ -10,6 +10,7 @@ import com.example.mercatusAPI.dto.auction.RegisterRoomDTO;
 import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.entitty.auction.MessagesAuction;
 import com.example.mercatusAPI.entitty.auction.MessagesType;
+import com.example.mercatusAPI.entitty.user.User;
 import com.example.mercatusAPI.repository.AuctionRepository;
 import com.example.mercatusAPI.repository.MessagesAuctionRepository;
 
@@ -31,7 +32,7 @@ public class AuctionService {
     
 
     public List<Auction> getOpenAuctions() {
-        return auctionRepository.findOpenAuctions();
+        return auctionRepository.findAll();
     }
 
     public void createAuctions(RegisterRoomDTO registrationData) {
@@ -46,26 +47,32 @@ public class AuctionService {
        auctionRepository.save(createRoom);
     }
 
-    public void placeBid(WebSocketSession session, Auction auction, BigDecimal bidAmount, String message) {
-        MessagesAuction bid = new MessagesAuction();
-        bid.setAmount(bidAmount);
-        bid.setAuctionId(auction.getId());
-        bid.setContent(message);
-        bid.setType(MessagesType.BID);
-        bid.setUserId(null);//TODO: BUSCAR O USER ID NO SOCKET
-        messagesAuctionRepository.save(bid);
+    public void placeBid(WebSocketSession session, Auction auction, BigDecimal bidAmount, String message, User user) {
+        messagesAuctionRepository.save(   
+            MessagesAuction.builder()
+            .auction(auction)
+            .replyTo(message)
+            .type(MessagesType.MESSAGE)
+            .user(user)
+            .content(message)
+            .build()
+        );
 
         System.out.println(message);
     }
 
-    public void sendMessageToAll(WebSocketSession session, Auction auction, String message) {
-        MessagesAuction messageCommon = new MessagesAuction();
-        messageCommon.setAmount(null);
-        messageCommon.setAuctionId(auction.getId());
-        messageCommon.setContent(message);
-        messageCommon.setType(MessagesType.MESSAGE);
-        messageCommon.setUserId(null);//TODO: BUSCAR O USER ID NO SOCKET
-        messagesAuctionRepository.save(messageCommon);
+    public void sendMessageToAll(WebSocketSession session, Auction auction, String message, User user) {
+        
+        messagesAuctionRepository.save(   
+            MessagesAuction.builder()
+            .auction(auction)
+            .replyTo(message)
+            .type(MessagesType.MESSAGE)
+            .user(user)
+            .content(message)
+            .build()
+        );
+
         System.out.println(message);
     }
 }

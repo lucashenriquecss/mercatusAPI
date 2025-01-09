@@ -32,7 +32,7 @@ public class AuctionController {
     public ResponseEntity<ApiResponsePadronize<String>> placeBid(@PathVariable String auctionId, @RequestBody BigDecimal bidAmount) {
 
         Auction auction = auctionService.findAuctionById(auctionId);
-        auctionService.placeBid(null, auction, bidAmount, null); 
+        auctionService.placeBid(null, auction, bidAmount, null, null); 
 
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponsePadronize<>(HttpStatus.OK, "Bid placed successfully", null));
     }

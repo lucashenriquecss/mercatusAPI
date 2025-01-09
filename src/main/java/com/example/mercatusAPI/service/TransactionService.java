@@ -10,14 +10,14 @@ import com.example.mercatusAPI.entitty.auction.Auction;
 import com.example.mercatusAPI.entitty.inventory.ItemInventory;
 import com.example.mercatusAPI.entitty.item.Item;
 import com.example.mercatusAPI.entitty.transaction.Transaction;
+import com.example.mercatusAPI.entitty.transaction.TransactionType;
 import com.example.mercatusAPI.entitty.user.User;
 import com.example.mercatusAPI.exception.ForbiddenException;
 import com.example.mercatusAPI.exception.NotFoundException;
-import com.example.mercatusAPI.repository.UserRepository;
 import com.example.mercatusAPI.repository.ItemInventoryRepository;
 import com.example.mercatusAPI.repository.ItemRepository;
 import com.example.mercatusAPI.repository.TransactionRepository;
-import com.example.mercatusAPI.entitty.transaction.TransactionType;
+import com.example.mercatusAPI.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -54,7 +54,6 @@ public class TransactionService {
             .amount(item.get().getAmount())
             .oldBalanceUser(user.getBalance())
             .newBalanceUser(user.getBalance().subtract(item.get().getAmount()))
-            .createdAt(LocalDateTime.now())
             .user(user)
             .build()
         );
@@ -112,7 +111,6 @@ public class TransactionService {
                 .amount(amount)
                 .oldBalanceUser(user.getBalance())
                 .newBalanceUser(user.getBalance().add(amount))
-                .createdAt(LocalDateTime.now())
                 .user(user)
                 .item(item)
                 .auction(auction)
